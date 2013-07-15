@@ -1,0 +1,52 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+body {
+	>header {
+		h1 {
+			text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+
+			// -webkit-transition: all 0.3s ease;
+			// -moz-transition: all 0.3s ease;
+			// -o-transition: all 0.3s ease;
+			// transition: all 0.3s ease
+		}
+
+		h1:hover {
+			text-shadow: 3px 3px 1px rgba(0,0,0,0.4);
+		}
+
+		h2 {
+			color: rgba(0,0,0,0.6);
+            text-transform: uppercase;
+		}
+
+		border-top: 5px $title-color solid;
+		border-bottom: 1px #aeaeae solid;
+		border-bottom-left-radius: 0.8em;
+		border-bottom-right-radius: 0.8em;
+
+		// background: -moz-linear-gradient(top, #fff 0%, #fff 95%, #eee 100%);
+		// background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(95%,#fff), color-stop(100%,#eee));
+		// background: -webkit-linear-gradient(top, #fff 0%,#fff 95%,#eee 100%);
+		// background: -o-linear-gradient(top, #fff 0%,#fff 95%,#eee 100%);
+		// background: -ms-linear-gradient(top, #fff 0%,#fff 95%,#eee 100%);
+		// background: linear-gradient(top, #fff 0%,#fff 95%,#eee 100%);
+	}
+
+	>nav {
+		border: none;
+		background: none;
+	}
+
+	>#main {
+
+		border-top: 5px $title-color solid;
+		// border-top: 1px #aeaeae solid;
+		// border-top-left-radius: 0.8em;
+		// border-top-right-radius: 0.8em;
+
+		>#content {
+			border-top-left-radius: inherit;
+		}
+	}
+}
