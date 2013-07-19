@@ -2,3 +2,34 @@
   <li><a href="{{ root_url }}/">Blog</a></li>
   <li><a href="{{ root_url }}/blog/archives">Archives</a></li>
 </ul>
+
+<ul class="social-icons">
+	{% if site.github_user %}
+	<li>
+		<a href="http://github.com/{{site.github_user}}">
+			<i class="icon-github"></i>
+		</a>
+	</li>
+	{% endif %}
+	{% if site.linkedin_user %}
+	<li>
+		<a href="http://www.linkedin.com/in/{{site.linkedin_user}}">
+			<i class="icon-linkedin"></i>
+		</a>
+	</li>
+	{% endif %}
+	{% if site.twitter_user %}
+	<li>
+		<a href="http://twitter.com/{{site.twitter_user}}">
+			<i class="icon-twitter"></i>
+		</a>
+	</li>
+	{% endif %}
+	{% if site.subscribe_rss %}
+	<li>
+		<a href="{{ site.subscribe_rss }}">
+			<i class="icon-rss"></i>
+		</a>
+	</li>
+	{% endif %}
+</ul>

@@ -74,3 +74,36 @@ body {
     margin-bottom: 6px;
   }
 }
+
+.social-icons {
+	float: right;
+	li {
+		border: 0;
+		color: #b4b4b4;
+
+		a {
+			padding: 0;
+			line-height: inherit;
+			font-size: 1.7em;
+
+			webkit-transition: all ease 0.3s;
+			-moz-transition: all ease 0.3s;
+			-o-transition: all ease 0.3s;
+			-ms-transition: all ease 0.3s;
+			transition: all ease 0.3s;
+		}
+
+		a:hover {
+			color: $secondary-color;
+
+			//-webkit-transform:rotate(360deg);
+			//-moz-transform:rotate(360deg);
+			//-o-transform:rotate(360deg);
+			//-ms-transform:rotate(360deg);
+			//transform:rotate(360deg);
+
+
+			text-shadow: 2px 2px 1px rgba(0,0,0,0.3);
+		}
+	}
+}

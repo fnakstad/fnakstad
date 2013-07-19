@@ -5,7 +5,9 @@ tags: []
 status: publish
 type: post
 published: true
----
+comments: true
+permalink: /token-introductory-post/
+
 I debated with myself for a little bit whether to have an introductory post or just to get started blogging. You can probably guess what I decided on in the end...
 
 The purpose of this blog is completely for self-amusement, and is basically a means of jotting down notes for whatever it is I'm working on at the   time. In the best case scenario other people will benefit from my posts, and give me feedback on better ways to solve things or simply provide interesting ideas and insight. I don't anticipate a huge flood of people wanting to read my ill-organized thoughts, but maybe I can distract the occasional straggler.

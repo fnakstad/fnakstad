@@ -1,14 +1,12 @@
 ---
 layout: post
 title: The Solar System
-tags:
-- Astronomy
-- Japanese
+tags: Astronomy Japanese
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '1'
+comments: true
+permalink: /the-solar-system
 ---
 While reading a Japanese text today, I ran into a sentence mentioning the planet Venus. In Japanese Venus is known as {% ruby 金星 きんせい %}, the kanji meaning "gold/metal" and "star" respectively. I decided to check out the other planet names of our solar system, and found out that they follow a naming pattern very close to how Japanese week days are named.   Just like the Japanese weekdays, many of the planets in our solar system are associated with an element like water, fire, and so on. Just see for yourself:
 

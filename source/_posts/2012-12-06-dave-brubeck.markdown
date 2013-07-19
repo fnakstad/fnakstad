@@ -5,6 +5,8 @@ tags: [Music]
 status: publish
 type: post
 published: true
+comments: true
+permalink: /dave-brubeck/
 ---
 Dave Brubeck has passed away, and I felt compelled to share a few thoughts about the man and his music. I first heard about him when a friend of mine in Tennessee played some songs off the album Take Five for me. I had heard the song the album takes its name from before and associated with a Norwegian commercial for caf   cookies, so I wasn't too thrilled about it. However, after hearing the song in its entirety and enjoying the excellent solo performances of Paul Desmond and Joe Morello I could tell there was something more to it than the pickled and processed 20 second cut I had heard earlier. One of my absolute favorite drum solos ever has been performed as part of this song:
 

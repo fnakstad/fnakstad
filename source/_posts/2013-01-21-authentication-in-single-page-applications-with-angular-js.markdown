@@ -1,15 +1,12 @@
 ---
 layout: post
 title: Authentication in Single Page Applications with Angular.js
-tags:
-- Angular JS
-- Development
+tags: Angular JS Development
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '1'
-  _syntaxhighlighter_encoded: '1'
+comments: true
+permalink: /authentication-in-single-page-applications-with-angular-js/
 ---
 **3/6/2013 update:**
 *I've done some heavy refactoring, and have now introduced an angular service to eliminate a lot of redundant code, as well as a directive which can aid in optionally displaying/hiding elements based on an access level. Please check out the [GitHub repo](https://github.com/fnakstad/angular-client-side-auth) for the latest version. The example app in the repo has been deployed to Heroku, so now you can test it out live for yourself [right here](http://angular-client-side-auth.herokuapp.com/).*
