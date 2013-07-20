@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[A Modest Proposal]]></title>
-  <link href="http://fnakstad.github.io/fnakstad/atom.xml" rel="self"/>
-  <link href="http://fnakstad.github.io/fnakstad/"/>
-  <updated>2013-07-20T17:41:13+02:00</updated>
-  <id>http://fnakstad.github.io/fnakstad/</id>
+  <link href="http://fnakstad.github.io/atom.xml" rel="self"/>
+  <link href="http://fnakstad.github.io/"/>
+  <updated>2013-07-20T19:07:37+02:00</updated>
+  <id>http://fnakstad.github.io/</id>
   <author>
     <name><![CDATA[Frederik Nakstad]]></name>
     
@@ -15,12 +15,12 @@
   
   <entry>
     <title type="html"><![CDATA[Application Cache Update Process State Diagram]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/application-cache-update-process-state-diagram/"/>
+    <link href="http://fnakstad.github.io/application-cache-update-process-state-diagram/"/>
     <updated>2013-05-24T00:00:00+02:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/application-cache-update-process-state-diagram</id>
+    <id>http://fnakstad.github.io/application-cache-update-process-state-diagram</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s a quick  little follow-up to my last post about the Application Cache. How the browser checks and fetches the cache can be a little confusing at first, so I made a state diagram to keep track of the different states the Application Cache might be in and the events that change said state.</p>
 
-<p><img src="http://fnakstad.github.io/fnakstad/images/posts/appCache_stateDiag.png"></p>
+<p><img src="http://fnakstad.github.io/images/posts/appCache_stateDiag.png"></p>
 
 <p>Well, it&rsquo;s not awfully complicated, but it&rsquo;s nice to have a visual aid when debugging. The guard conditions indicate whether there already exists an old version of the application cache or not.</p>
 ]]></content>
@@ -28,9 +28,9 @@
   
   <entry>
     <title type="html"><![CDATA[Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache/"/>
+    <link href="http://fnakstad.github.io/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache/"/>
     <updated>2013-05-20T00:00:00+02:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache</id>
+    <id>http://fnakstad.github.io/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache</id>
     <content type="html"><![CDATA[<p>Snappy title, yes&hellip;? Let&rsquo;s just move on&hellip;</p>
 
 <p>The application cache API introduced by HTML5 is a very powerful tool which is particularly useful for web applications whose intended primary use is on mobile devices. Not only can it significantly speed up the load time of your app, but if implemented correctly you can make your application work quite well even when the user is not connected to the Internet. I&rsquo;m not going to write too much about how the application cache works as it has already been covered very well elsewhere. If that&rsquo;s what you&rsquo;re looking for I&rsquo;d recommend the following articles:</p>
@@ -75,9 +75,9 @@
   
   <entry>
     <title type="html"><![CDATA[Seeding mongodb through your mongoose models]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models/"/>
+    <link href="http://fnakstad.github.io/seeding-mongodb-through-your-mongoose-models/"/>
     <updated>2013-04-12T00:00:00+02:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models</id>
+    <id>http://fnakstad.github.io/seeding-mongodb-through-your-mongoose-models</id>
     <content type="html"><![CDATA[<p><strong>23/4/2013 Update:</strong>
 <em>A change implementing promise support for the</em> <code>create</code> <em>function <a href="https://github.com/LearnBoost/mongoose/commit/2ef5f237e054fc4846143530410e353ef7a7456e">was just committed to GitHub</a>, and should be available in the 3.7 release of Mongoose. Sweet!</em></p>
 
@@ -105,9 +105,9 @@
   
   <entry>
     <title type="html"><![CDATA[Psych Saturday]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/psych-saturday/"/>
+    <link href="http://fnakstad.github.io/psych-saturday/"/>
     <updated>2013-01-26T00:00:00+01:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/psych-saturday</id>
+    <id>http://fnakstad.github.io/psych-saturday</id>
     <content type="html"><![CDATA[<p>I&rsquo;ve always been a huge fan of psychedelic and acid rock from the 60&rsquo;s, so I&rsquo;m really happy to see the resurgence of this type of music in more recent times. Some of the best albums to come out the past few years have come from bands like Deerhunter and Animal Collective who borrow heavily from the likes of Revolver-era Beatles and psych classic <a href="http://www.allmusic.com/album/the-united-states-of-america-mw0000207966">The United States of America</a>. The genre hasn&rsquo;t really changed that much with the new crop of bands popping up&hellip; They&rsquo;re basically doing the same thing they did in the 60&rsquo;s, but that still means there&rsquo;s a much greater willingness to experiment with structure and sound than you see elsewhere.</p>
 
 <p>One band I&rsquo;ve taken a great liking to is Tame Impala from Perth, Australia. I remember being hooked as soon as I heard the opening track to <a href="http://www.allmusic.com/album/innerspeaker-mw0001990920">Innerspeaker</a> called <em>It Is Not Meant To Be</em>. The part that really stands out to me, and makes the song shine, is how the aural texture (for lack of a better term&hellip;) of the song shifts so perfectly to match the lyrics. The instrumentation is pretty standard, but it seems very thought out how the different instruments interact and carry each other through the different parts of the song. To me it&rsquo;s a perfect psych pearl, and my favorite Tame Impala song.</p>
@@ -119,9 +119,9 @@
   
   <entry>
     <title type="html"><![CDATA[Authentication in Single Page Applications with Angular.js]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/authentication-in-single-page-applications-with-angular-js/"/>
+    <link href="http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js/"/>
     <updated>2013-01-21T00:00:00+01:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/authentication-in-single-page-applications-with-angular-js</id>
+    <id>http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js</id>
     <content type="html"><![CDATA[<p><strong>3/6/2013 update:</strong>
 <em>I&rsquo;ve done some heavy refactoring, and have now introduced an angular service to eliminate a lot of redundant code, as well as a directive which can aid in optionally displaying/hiding elements based on an access level. Please check out the <a href="https://github.com/fnakstad/angular-client-side-auth">GitHub repo</a> for the latest version. The example app in the repo has been deployed to Heroku, so now you can test it out live for yourself <a href="http://angular-client-side-auth.herokuapp.com/">right here</a>.</em></p>
 
@@ -238,9 +238,9 @@
   
   <entry>
     <title type="html"><![CDATA[The Solar System]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/the-solar-system"/>
+    <link href="http://fnakstad.github.io/the-solar-system"/>
     <updated>2012-12-23T00:00:00+01:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/the-solar-system</id>
+    <id>http://fnakstad.github.io/the-solar-system</id>
     <content type="html"><![CDATA[<p>While reading a Japanese text today, I ran into a sentence mentioning the planet Venus. In Japanese Venus is known as <ruby>金星<rt>きんせい</rt></ruby>, the kanji meaning &ldquo;gold/metal&rdquo; and &ldquo;star&rdquo; respectively. I decided to check out the other planet names of our solar system, and found out that they follow a naming pattern very close to how Japanese week days are named.   Just like the Japanese weekdays, many of the planets in our solar system are associated with an element like water, fire, and so on. Just see for yourself:</p>
 
 <table>
@@ -353,9 +353,9 @@
   
   <entry>
     <title type="html"><![CDATA[Dave Brubeck]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/dave-brubeck/"/>
+    <link href="http://fnakstad.github.io/dave-brubeck/"/>
     <updated>2012-12-06T00:00:00+01:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/dave-brubeck</id>
+    <id>http://fnakstad.github.io/dave-brubeck</id>
     <content type="html"><![CDATA[<p>Dave Brubeck has passed away, and I felt compelled to share a few thoughts about the man and his music. I first heard about him when a friend of mine in Tennessee played some songs off the album Take Five for me. I had heard the song the album takes its name from before and associated with a Norwegian commercial for caf   cookies, so I wasn&rsquo;t too thrilled about it. However, after hearing the song in its entirety and enjoying the excellent solo performances of Paul Desmond and Joe Morello I could tell there was something more to it than the pickled and processed 20 second cut I had heard earlier. One of my absolute favorite drum solos ever has been performed as part of this song:</p>
 
 <div class="embed-video-container"><iframe src="http://www.youtube.com/embed/tsKq3HD0EFc "></iframe></div>
@@ -370,9 +370,9 @@
   
   <entry>
     <title type="html"><![CDATA[Token Introductory Post]]></title>
-    <link href="http://fnakstad.github.io/fnakstad/blog/2012/12/05/token-introductory-post/"/>
+    <link href="http://fnakstad.github.io/blog/2012/12/05/token-introductory-post/"/>
     <updated>2012-12-05T00:00:00+01:00</updated>
-    <id>http://fnakstad.github.io/fnakstad/blog/2012/12/05/token-introductory-post</id>
+    <id>http://fnakstad.github.io/blog/2012/12/05/token-introductory-post</id>
     <content type="html"><![CDATA[<hr />
 
 <p>layout: post
