@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Seeding mongodb through your mongoose models - A Modest Proposal</title>
+  <meta name="author" content="Frederik Nakstad">
+
+  
+  <meta name="description" content="23/4/2013 Update:
+A change implementing promise support for the create function was just committed to GitHub, and should be available in the 3.7 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="A Modest Proposal" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Yellowtail&amp;ver=1.0.8" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700' rel='stylesheet' type='text/css'>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37251205-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">A Modest Proposal</a></h1>
+  
+    <h2>Web Development, Japanese, Music.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+<ul class="social-icons">
+	
+	<li>
+		<a href="http://github.com/fnakstad">
+			<i class="icon-github"></i>
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href="http://www.linkedin.com/in/frederiknakstad">
+			<i class="icon-linkedin"></i>
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href="http://twitter.com/fnakstad">
+			<i class="icon-twitter"></i>
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href="/atom.xml">
+			<i class="icon-rss"></i>
+		</a>
+	</li>
+	
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Seeding Mongodb Through Your Mongoose Models</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-12T00:00:00+02:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>23/4/2013 Update:</strong>
+<em>A change implementing promise support for the</em> <code>create</code> <em>function <a href="https://github.com/LearnBoost/mongoose/commit/2ef5f237e054fc4846143530410e353ef7a7456e">was just committed to GitHub</a>, and should be available in the 3.7 release of Mongoose. Sweet!</em></p>
+
+<p>Just wanted to share a nice little technique I discovered when working on a project using the wonderful <a href="http://mongoosejs.com/">Mongoose</a> library to interact with a MongoDB database in Node.js. I was writing some integration tests, and needed to reset and seed the database from a set of JSON files before running each test. I really wanted to do this through my existing Mongoose models, so that I could get all the seed data validated before running my tests. Since there also are relations between my different collections I needed to insert the collections in a certain order, so my first attempt quickly devolved into a textbook example of the good ol&#8217; pyramid of doom:</p>
+
+<div><script src='https://gist.github.com/6033297.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>In the above code snippet <code>User</code>, <code>Exercise</code>, and <code>WorkoutTemplate</code> are my mongoose models, and since my <code>WorkoutTemplate</code> schema references my <code>Exercise</code> schema I need to insert data in that specific order. Using Mongoose&rsquo;s <code>remove</code> function with an empty object as the first argument will clear everything from the related collection. Furthermore, the <code>create</code> function will attempt to do a batch insert of the array you hand it. However, as you can see this quickly devolved into callback hell, and that was with just three different collections! Fortunately, I discovered that the <code>exec</code> function, which you can call on query objects, returns a promise object. This means I can just make a pretty, little promise chain instead of using callbacks.</p>
+
+<p>There is just one obstacle to this&hellip; The <code>create</code> function does not return a query object, meaning we can&rsquo;t call <code>exec</code> on it to return a promise&hellip; I decided to rectify this by attaching a new function on the base mongoose Model which basically just wraps the <code>create</code> function, but actually returns a promise object.</p>
+
+<div><script src='https://gist.github.com/6033333.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>So, finally I am able to create a nice and neat promise chain in the <code>beforeEach</code> function of my test suite. Voilà!</p>
+
+<div><script src='https://gist.github.com/6033342.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Frederik Nakstad</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-12T00:00:00+02:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models/" data-via="fnakstad" data-counturl="http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/psych-saturday/" title="Previous Post: Psych Saturday">&laquo; Psych Saturday</a>
+      
+      
+        <a class="basic-alignment right" href="/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache/" title="Next Post: Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache">Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/application-cache-update-process-state-diagram/">Application Cache Update Process State Diagram</a>
+      </li>
+    
+      <li class="post">
+        <a href="/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache/">Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/seeding-mongodb-through-your-mongoose-models/">Seeding Mongodb Through Your Mongoose Models</a>
+      </li>
+    
+      <li class="post">
+        <a href="/psych-saturday/">Psych Saturday</a>
+      </li>
+    
+      <li class="post">
+        <a href="/authentication-in-single-page-applications-with-angular-js/">Authentication in Single Page Applications With Angular.js</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Frederik Nakstad
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'amodestproposal';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models/';
+        var disqus_url = 'http://fnakstad.github.io/fnakstad/seeding-mongodb-through-your-mongoose-models/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
