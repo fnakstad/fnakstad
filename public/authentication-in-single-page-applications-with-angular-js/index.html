@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Authentication in Single Page Applications with Angular.js - A Modest Proposal</title>
+  <meta name="author" content="Frederik Nakstad">
+
+  
+  <meta name="description" content="3/6/2013 update:
+I&rsquo;ve done some heavy refactoring, and have now introduced an angular service to eliminate a lot of redundant code, as well as &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="A Modest Proposal" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Yellowtail&amp;ver=1.0.8" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700' rel='stylesheet' type='text/css'>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37251205-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">A Modest Proposal</a></h1>
+  
+    <h2>Web Development, Japanese, Music.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+<ul class="social-icons">
+	
+	<li>
+		<a href="http://github.com/fnakstad">
+			<i class="icon-github"></i>
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href="http://www.linkedin.com/in/frederiknakstad">
+			<i class="icon-linkedin"></i>
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href="http://twitter.com/fnakstad">
+			<i class="icon-twitter"></i>
+		</a>
+	</li>
+	
+	
+	<li>
+		<a href="/atom.xml">
+			<i class="icon-rss"></i>
+		</a>
+	</li>
+	
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Authentication in Single Page Applications With Angular.js</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-21T00:00:00+01:00" pubdate data-updated="true">Jan 21<span>st</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>3/6/2013 update:</strong>
+<em>I&rsquo;ve done some heavy refactoring, and have now introduced an angular service to eliminate a lot of redundant code, as well as a directive which can aid in optionally displaying/hiding elements based on an access level. Please check out the <a href="https://github.com/fnakstad/angular-client-side-auth">GitHub repo</a> for the latest version. The example app in the repo has been deployed to Heroku, so now you can test it out live for yourself <a href="http://angular-client-side-auth.herokuapp.com/">right here</a>.</em></p>
+
+<p>I have been working a lot with Angular.js lately, and love how easy it makes it to create web applications with rich client-side functionality. It&rsquo;s an extremely useful asset in keeping your own client-side code lean, making it easy to separate business logic and declarative markup for anything view specific.  However, it&rsquo;s not all roses, and I&rsquo;m still struggling to find the best solutions to some problems I have encountered. One of which is a problem that exceeds the scope of Angular&hellip;</p>
+
+<p><strong><em>How do I deal with authentication and authorization in single page applications?</em></strong></p>
+
+<p>Since only the initial load of the app is a full page load, and subsequent communication with the server is entirely done via XHRs I need a slightly different model from the traditional one. One option I tried out was to have a traditional login page which, on success, redirects to a secured URL which loads the actual application. This has the added benefit that the client side code and view templates used for pages intended for logged in users are not accessible to anyone not logged in. However, in many cases this is not much of a concern as long as the communication against the resource API is properly secured. Preventing anyone from getting or modifying sensitive data is a server-side issue, and should therefore be properly handled there. I wanted a seamless user experience with no full page reloads beyond the initial page load, so I decided to play around a little and see if I could come up with an alternative. These are the core characteristics of the solution I set out to implement:</p>
+
+<ol>
+<li>The server needs to communicate what permissions/role the client has on inital page load.</li>
+<li>The client app then needs to keep track of the user&rsquo;s login status, and change it accordingly when the user logs in or out. These operations should not cause a full page reload.</li>
+<li>The access level of the routes should be declared as part of the rest of the routing configuration.</li>
+</ol>
+
+
+<h2>Configuring access levels and user roles</h2>
+
+<p>To indicate the available user roles and access levels to be used in the routing system, I decided to make a separate module which could be used both on the client and server side (with Node.js):</p>
+
+<div><script src='https://gist.github.com/6031923.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>Both the user roles and access levels are defined as numbers so that it is possible to calculate permissions using binary operations. User roles are defined by which bit is set to 1, while access levels indicate whether that user role has access by setting the corresponding bit to either 1 or 0 in the bitmask<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>. So, here is an example of binary operations that can be calculated to see whether the user role <code>user</code> has access to the access levels <code>admin</code> and <code>public</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>   010 // = userRole: user
+</span><span class='line'>OR 100 // = accessLevel admin
+</span><span class='line'>=  000 // = false, no access
+</span><span class='line'>
+</span><span class='line'>   010 // = userRole: user
+</span><span class='line'>OR 111 // = accessLevel public
+</span><span class='line'>=  010 // = true, go ahead</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Setting up client-side routing</h2>
+
+<p>When I define my routes I want to indicate what access level each route should have, so I add a new property to each route, called <code>access</code>, like so:</p>
+
+<div><script src='https://gist.github.com/6032777.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<h2>Communicating login status to client side app on initial page load</h2>
+
+<p>When the user first loads the client side app, whether he&rsquo;s trying to access a restricted or public route initially, the server needs to communicate the current role of the user. Since the client side app can&rsquo;t decrypt the authentication cookie set by the server, I decided to communicate login status via the HTTP response which serves up the single page application. I decided on doing this by setting a cookie, which the client would clear upon reading it. I feel like there&rsquo;s something icky about doing it this way, so I&rsquo;m open to any alternative solutions here. Anyway, the server sets the cookie like so:</p>
+
+<div><script src='https://gist.github.com/6032803.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>On the client-side I have an Angular service, <code>Auth</code>, which upon initialization will read in this cookie, save the login status, then discard the cookie. This service will also make the access levels, user roles, and current user available to the rest of the application.</p>
+
+<div><script src='https://gist.github.com/6032854.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>So, now my Angular app knows what login status the user has, and can perform the client side routing based on this status.</p>
+
+<h2>Enforcing the routing policy client-side</h2>
+
+<p><strong>Warning: I want to stress the importance of securing your server-side API once-again. The routing policy we&rsquo;re &ldquo;enforcing&rdquo; client-side is <em>very</em> easy to get around using Chrome Developer Tools or Firebug. The technique I&rsquo;m describing is used as a way of tailoring your views and giving a better user experience, but malicious users can still change their user role and get access to client-side routes that should be restricted to them. This is not a problem as long as any sensitive data is accessed via your server-side API, and the proper authentication/authorization strategy is implemented there.</strong></p>
+
+<p>Now that I have access to the current user&rsquo;s role and the access level of each route I can actually enforce the policy I&rsquo;ve configured. So now I can add functionality like logging in, registering new users, authorizing a route, etc. to the <code>Auth</code> service I mentioned earlier.</p>
+
+<div><script src='https://gist.github.com/6032902.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>This service can easily be reused by injecting it into any other component of my Angular application. For example, to actually enforce my routing policy I need to utilize the <code>authorize()</code> and <code>isLoggedIn()</code> functions in an event handler on $routeChangeStart:</p>
+
+<div><script src='https://gist.github.com/6032970.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>Now, whenever a route is accessed, the proper authorization check will be performed before serving up the view, and a redirect will happen in case the user has insufficient permissions.</p>
+
+<p>One gotcha here is that the session could time out making the client believe the user is logged in when in fact he is declined when communicating with the server resource API. However this can be rectified by using an HTTP interceptor to detect API calls that were denied. Mine is pretty simple, and just redirects to the login page in case of a 401.</p>
+
+<div><script src='https://gist.github.com/6033015.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<h2>Customizing views based on user role</h2>
+
+<p>I also want to introduce a directive I&rsquo;ve made which you can use to show/hide elements based on the current user&rsquo;s role. Here&rsquo;s what it looks like:</p>
+
+<div><script src='https://gist.github.com/6033059.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+<p>So, whenever you decorate a tag with the <code>access-level</code> directive, it will check the role of the current user, perform an authorization check using the injected <code>Auth</code>, and then show/hide the element. It also remembers the previous <code>display</code> property of the element in case the user logs out, thus changing her role.</p>
+
+<p>I really want to stress again the point that this scheme exposes all the routing logic and view templates to the client, and can easily be manipulated by the end user. So, you still have to make sure that the calls to the server are properly authenticated and authorized there.</p>
+
+<p>I have made a complete example with all the code available in <em><a href="https://github.com/fnakstad/angular-client-side-auth">this GitHub repository</a></em>, which might illustrate my approach better than I have been able to in this blogpost.</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>The routingConfig module in the <a href="https://github.com/fnakstad/angular-client-side-auth">GitHub repo</a> will now automatically generate the required bit masks for you!<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Frederik Nakstad</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-21T00:00:00+01:00" pubdate data-updated="true">Jan 21<span>st</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js/" data-via="fnakstad" data-counturl="http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/the-solar-system" title="Previous Post: The Solar System">&laquo; The Solar System</a>
+      
+      
+        <a class="basic-alignment right" href="/psych-saturday/" title="Next Post: Psych Saturday">Psych Saturday &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/application-cache-update-process-state-diagram/">Application Cache Update Process State Diagram</a>
+      </li>
+    
+      <li class="post">
+        <a href="/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache/">Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/seeding-mongodb-through-your-mongoose-models/">Seeding Mongodb Through Your Mongoose Models</a>
+      </li>
+    
+      <li class="post">
+        <a href="/psych-saturday/">Psych Saturday</a>
+      </li>
+    
+      <li class="post">
+        <a href="/authentication-in-single-page-applications-with-angular-js/">Authentication in Single Page Applications With Angular.js</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Frederik Nakstad
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'amodestproposal';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js/';
+        var disqus_url = 'http://fnakstad.github.io/authentication-in-single-page-applications-with-angular-js/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
