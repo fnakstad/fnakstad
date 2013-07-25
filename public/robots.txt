@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://fnakstad.github.io/sitemap.xml 
+Sitemap: http://frederiknakstad.com/sitemap.xml 
