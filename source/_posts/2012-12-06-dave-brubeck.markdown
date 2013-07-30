@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Dave Brubeck
-tags: [Music]
+categories: [Music]
 status: publish
 type: post
 published: true

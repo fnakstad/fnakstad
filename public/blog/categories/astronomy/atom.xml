@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Astronomy | A Modest Proposal]]></title>
+  <link href="http://frederiknakstad.com/blog/categories/astronomy/atom.xml" rel="self"/>
+  <link href="http://frederiknakstad.com/"/>
+  <updated>2013-07-30T21:33:00+02:00</updated>
+  <id>http://frederiknakstad.com/</id>
+  <author>
+    <name><![CDATA[Frederik Nakstad]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Solar System]]></title>
+    <link href="http://frederiknakstad.com/the-solar-system"/>
+    <updated>2012-12-23T00:00:00+01:00</updated>
+    <id>http://frederiknakstad.com/the-solar-system</id>
+    <content type="html"><![CDATA[<p>While reading a Japanese text today, I ran into a sentence mentioning the planet Venus. In Japanese Venus is known as <ruby>金星<rt>きんせい</rt></ruby>, the kanji meaning &ldquo;gold/metal&rdquo; and &ldquo;star&rdquo; respectively. I decided to check out the other planet names of our solar system, and found out that they follow a naming pattern very close to how Japanese week days are named.   Just like the Japanese weekdays, many of the planets in our solar system are associated with an element like water, fire, and so on. Just see for yourself:</p>
+
+<table>
+<thead>
+<tr>
+<th align="center"><ruby>日本語<rt>にほんご</rt></ruby>   </th>
+<th align="center"> English</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><ruby>太陽<rt>たいよう</rt></ruby>      </td>
+<td align="center"> Sun</td>
+</tr>
+<tr>
+<td align="center"><ruby>水星<rt>すいせい</rt></ruby>  </td>
+<td align="center"> Mercury</td>
+</tr>
+<tr>
+<td align="center"><ruby>金星<rt>きんせい</rt></ruby>  </td>
+<td align="center"> Venus</td>
+</tr>
+<tr>
+<td align="center"><ruby>地球<rt>ちきゅう</rt></ruby>  </td>
+<td align="center"> Earth</td>
+</tr>
+<tr>
+<td align="center"><ruby>火星<rt>かせい</rt></ruby>         </td>
+<td align="center"> Mars</td>
+</tr>
+<tr>
+<td align="center"><ruby>木星<rt>もくせい</rt></ruby>  </td>
+<td align="center"> Jupiter</td>
+</tr>
+<tr>
+<td align="center"><ruby>土星<rt>どせい</rt></ruby>     </td>
+<td align="center"> Saturn</td>
+</tr>
+<tr>
+<td align="center"><ruby>天王星<rt>てんのうせい</rt></ruby>     </td>
+<td align="center"> Uranus</td>
+</tr>
+<tr>
+<td align="center"><ruby>海王星<rt>かいおうせい</rt></ruby>     </td>
+<td align="center"> Neptune</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>So, if you disregard the sun and earth all but two of the planets are associated with an element. The origin for this naming scheme, I found out, is the concept of <a href="http://en.wikipedia.org/wiki/Wu_Xing">Wu Xing</a> which is prevalent in several Eastern Asian cultures. Wu Xing is a system for dividing different natural phenomena into five different phases corresponding to what the Chinese thought to be the five basic elements of nature: wood, fire, earth, metal, and water. This system was used to describe anything from cosmic cycles to musical notation and anatomical  processes. Thus, according to this system, Mercury is associated with water (水), Venus with gold/metal (金), Mars with fire (火), Jupiter with wood (木), and Saturn with earth (土).</p>
+
+<p>However, that means there are no elements left to assign to Uranus and Neptune&hellip; Since these two planets were discovered relatively recently, their names are simply translations from their Roman and Greek counterparts. Since Uranus was the Greek god of the sky, they decided to use the characters 天 and 王 in its name, meaning &ldquo;heaven&rdquo; and &ldquo;king&rdquo; respectively. Neptune, also known as the Roman god of the sea, was named using 海 and 王, meaning &ldquo;sea&rdquo; and &ldquo;king&rdquo;.</p>
+
+<p>Knowing the history behind the names should be really helpful in memorizing them! In concluding this post, I&rsquo;d like to list some other astronomical terms I came across:</p>
+
+<table>
+<thead>
+<tr>
+<th align="center"><ruby>日本語<rt>にほんご</rt></ruby>   </th>
+<th align="center"> English</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><ruby>月<rt>つき</rt></ruby>       </td>
+<td align="center"> Moon</td>
+</tr>
+<tr>
+<td align="center"><ruby>惑星<rt>わくせい</rt></ruby>  </td>
+<td align="center"> Planet</td>
+</tr>
+<tr>
+<td align="center"><ruby>星<rt>ほし</rt></ruby>   </td>
+<td align="center"> Star</td>
+</tr>
+<tr>
+<td align="center"><ruby>太陽系<rt>たいようけい</rt></ruby>     </td>
+<td align="center"> Solar system</td>
+</tr>
+<tr>
+<td align="center"><ruby>銀河系<rt>ぎんがけい</rt></ruby>    </td>
+<td align="center"> Galaxy</td>
+</tr>
+<tr>
+<td align="center"><ruby>小惑星<rt>しょうわくせい</rt></ruby>  </td>
+<td align="center"> Asteroid</td>
+</tr>
+<tr>
+<td align="center"><ruby>小惑星帯<rt>しょうわくせいたい</rt></ruby>     </td>
+<td align="center"> Asteroid belt</td>
+</tr>
+<tr>
+<td align="center"><ruby>彗星<rt>すいせい</rt></ruby>  </td>
+<td align="center"> Comet</td>
+</tr>
+<tr>
+<td align="center"><ruby>流星<rt>りゅうせい</rt></ruby>   </td>
+<td align="center"> Meteor</td>
+</tr>
+<tr>
+<td align="center"><ruby>隕石<rt>いんせき</rt></ruby>  </td>
+<td align="center"> Meteorite</td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+</feed>

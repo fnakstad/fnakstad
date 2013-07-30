@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Seeding mongodb through your mongoose models
-tags: Development MongoDB Mongoose Node.js
+categories: [Development, MongoDB, Mongoose, Node.js]
 status: publish
 type: post
 published: true

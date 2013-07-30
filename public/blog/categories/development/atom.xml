@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[A Modest Proposal]]></title>
-  <link href="http://frederiknakstad.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Development | A Modest Proposal]]></title>
+  <link href="http://frederiknakstad.com/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://frederiknakstad.com/"/>
   <updated>2013-07-30T21:33:00+02:00</updated>
   <id>http://frederiknakstad.com/</id>
@@ -84,35 +84,13 @@ The next step is to create a middleware component which can be used to authorize
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Hello Octopress]]></title>
-    <link href="http://frederiknakstad.com/blog/2013/07/28/hello-octopress/"/>
-    <updated>2013-07-28T00:55:00+02:00</updated>
-    <id>http://frederiknakstad.com/blog/2013/07/28/hello-octopress</id>
-    <content type="html"><![CDATA[<p>I have been working on migrating my blog from Wordpress to Octopress lately, and finally the new version is live!
-The new setup is running via <a href="http://nginx.org/">nginx</a> on an Ubuntu VPS from <a href="https://www.digitalocean.com/">DigitalOcean</a>.
-This was my first time trying out nginx, and it was surprisingly simple to set up!
-I guess it&rsquo;s used more often as a reverse proxy, but for static sites (such as Octopress) it also works really well as a simple server.</p>
-
-<p>Another reason for the lack of posts lately is that I am moving to Tokyo this September to start studying at <a href="http://www.waseda.jp/">Waseda University</a>.
-I&rsquo;ll be starting my Master&rsquo;s studies there as part of <a href="http://www.washi.cs.waseda.ac.jp/">Professor Washizaki&rsquo;s lab</a>, and I couldn&rsquo;t be more excited about it!
-Needless to say, moving to the other side of the world encompasses a ton of preparations and paperwork (and the Japanese, like any other bureaucracy I guess, <em>love</em> their paperwork).</p>
-
-<p>So, hopefully there will be more non-technical posts as well.
-However, I have a half-finished post I&rsquo;ll publish quite soon, which will complement <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">Authentication in Single Page Applications With Angular.js</a> with information about how the server-side is set up. I&rsquo;ve received a lot of questions about that, so I thought a clarification might be in order.</p>
-
-<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3H7ditla3l4 "></iframe></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Application Cache Update Process State Diagram]]></title>
     <link href="http://frederiknakstad.com/application-cache-update-process-state-diagram/"/>
     <updated>2013-05-24T00:00:00+02:00</updated>
     <id>http://frederiknakstad.com/application-cache-update-process-state-diagram</id>
     <content type="html"><![CDATA[<p>Here&rsquo;s a quick  little follow-up to my last post about the Application Cache. How the browser checks and fetches the cache can be a little confusing at first, so I made a state diagram to keep track of the different states the Application Cache might be in and the events that change said state.</p>
 
-<p><img src="http://frederiknakstad.com/images/posts/appCache_stateDiag.png"></p>
+<p><img src="/images/posts/appCache_stateDiag.png"></p>
 
 <p>Well, it&rsquo;s not awfully complicated, but it&rsquo;s nice to have a visual aid when debugging. The guard conditions indicate whether there already exists an old version of the application cache or not.</p>
 ]]></content>
@@ -145,21 +123,18 @@ However, I have a half-finished post I&rsquo;ll publish quite soon, which will c
 
 <p>To install all the necessary packages, just run the following commands in your project folder (assuming you already have installed npm):</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g grunt-cli
-</span><span class='line'>npm install grunt
-</span><span class='line'>npm install grunt-manifest
-</span><span class='line'>npm install grunt-contrib-watch</span></code></pre></td></tr></table></div></figure>
-
+<p><code>
+npm install -g grunt-cli
+npm install grunt
+npm install grunt-manifest
+npm install grunt-contrib-watch
+</code></p>
 
 <p>Next, create a <code>Gruntfile.js</code> in your project root, which is where we will define our automated tasks:</p>
 
-<div><script src='https://gist.github.com/6033441.js'></script>
+<p><div><script src='https://gist.github.com/6033441.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>Here we define two tasks, <code>manifest</code> and <code>watch</code>. The <code>manifest</code> task will generate a new manifest file and update the timestamp in the comment at the top of the file. The <code>watch</code> task will monitor the files specified, and is configured to perform the manifest task when a change has been detected. So, now we can have the manifest be automatically generated whenever a file changes by running the command <code>grunt watch</code>. This task can yet again be made part of a separate <code>run-dev</code> task which could also fire up a local node-server, live-reload, automatic LESS compilation, etc. to remove any other tasks you do manually when starting up a development server.</p>
 ]]></content>
@@ -173,39 +148,25 @@ However, I have a half-finished post I&rsquo;ll publish quite soon, which will c
     <content type="html"><![CDATA[<p><strong>23/4/2013 Update:</strong>
 <em>A change implementing promise support for the</em> <code>create</code> <em>function <a href="https://github.com/LearnBoost/mongoose/commit/2ef5f237e054fc4846143530410e353ef7a7456e">was just committed to GitHub</a>, and should be available in the 3.7 release of Mongoose. Sweet!</em></p>
 
-<p>Just wanted to share a nice little technique I discovered when working on a project using the wonderful <a href="http://mongoosejs.com/">Mongoose</a> library to interact with a MongoDB database in Node.js. I was writing some integration tests, and needed to reset and seed the database from a set of JSON files before running each test. I really wanted to do this through my existing Mongoose models, so that I could get all the seed data validated before running my tests. Since there also are relations between my different collections I needed to insert the collections in a certain order, so my first attempt quickly devolved into a textbook example of the good ol&#8217; pyramid of doom:</p>
+<p>Just wanted to share a nice little technique I discovered when working on a project using the wonderful <a href="http://mongoosejs.com/">Mongoose</a> library to interact with a MongoDB database in Node.js. I was writing some integration tests, and needed to reset and seed the database from a set of JSON files before running each test. I really wanted to do this through my existing Mongoose models, so that I could get all the seed data validated before running my tests. Since there also are relations between my different collections I needed to insert the collections in a certain order, so my first attempt quickly devolved into a textbook example of the good ol' pyramid of doom:</p>
 
-<div><script src='https://gist.github.com/6033297.js'></script>
+<p><div><script src='https://gist.github.com/6033297.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>In the above code snippet <code>User</code>, <code>Exercise</code>, and <code>WorkoutTemplate</code> are my mongoose models, and since my <code>WorkoutTemplate</code> schema references my <code>Exercise</code> schema I need to insert data in that specific order. Using Mongoose&rsquo;s <code>remove</code> function with an empty object as the first argument will clear everything from the related collection. Furthermore, the <code>create</code> function will attempt to do a batch insert of the array you hand it. However, as you can see this quickly devolved into callback hell, and that was with just three different collections! Fortunately, I discovered that the <code>exec</code> function, which you can call on query objects, returns a promise object. This means I can just make a pretty, little promise chain instead of using callbacks.</p>
 
 <p>There is just one obstacle to this&hellip; The <code>create</code> function does not return a query object, meaning we can&rsquo;t call <code>exec</code> on it to return a promise&hellip; I decided to rectify this by attaching a new function on the base mongoose Model which basically just wraps the <code>create</code> function, but actually returns a promise object.</p>
 
-<div><script src='https://gist.github.com/6033333.js'></script>
+<p><div><script src='https://gist.github.com/6033333.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>So, finally I am able to create a nice and neat promise chain in the <code>beforeEach</code> function of my test suite. Voilà!</p>
 
-<div><script src='https://gist.github.com/6033342.js'></script>
+<p><div><script src='https://gist.github.com/6033342.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Psych Saturday]]></title>
-    <link href="http://frederiknakstad.com/psych-saturday/"/>
-    <updated>2013-01-26T00:00:00+01:00</updated>
-    <id>http://frederiknakstad.com/psych-saturday</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve always been a huge fan of psychedelic and acid rock from the 60&rsquo;s, so I&rsquo;m really happy to see the resurgence of this type of music in more recent times. Some of the best albums to come out the past few years have come from bands like Deerhunter and Animal Collective who borrow heavily from the likes of Revolver-era Beatles and psych classic <a href="http://www.allmusic.com/album/the-united-states-of-america-mw0000207966">The United States of America</a>. The genre hasn&rsquo;t really changed that much with the new crop of bands popping up&hellip; They&rsquo;re basically doing the same thing they did in the 60&rsquo;s, but that still means there&rsquo;s a much greater willingness to experiment with structure and sound than you see elsewhere.</p>
-
-<p>One band I&rsquo;ve taken a great liking to is Tame Impala from Perth, Australia. I remember being hooked as soon as I heard the opening track to <a href="http://www.allmusic.com/album/innerspeaker-mw0001990920">Innerspeaker</a> called <em>It Is Not Meant To Be</em>. The part that really stands out to me, and makes the song shine, is how the aural texture (for lack of a better term&hellip;) of the song shifts so perfectly to match the lyrics. The instrumentation is pretty standard, but it seems very thought out how the different instruments interact and carry each other through the different parts of the song. To me it&rsquo;s a perfect psych pearl, and my favorite Tame Impala song.</p>
-
-<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/bUq3oc0lYbw "></iframe></div>
-
+</p>
 ]]></content>
   </entry>
   
@@ -234,49 +195,43 @@ However, I have a half-finished post I&rsquo;ll publish quite soon, which will c
 
 <p>To indicate the available user roles and access levels to be used in the routing system, I decided to make a separate module which could be used both on the client and server side (with Node.js):</p>
 
-<div><script src='https://gist.github.com/6031923.js'></script>
+<p><div><script src='https://gist.github.com/6031923.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>Both the user roles and access levels are defined as numbers so that it is possible to calculate permissions using binary operations. User roles are defined by which bit is set to 1, while access levels indicate whether that user role has access by setting the corresponding bit to either 1 or 0 in the bitmask<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>. So, here is an example of binary operations that can be calculated to see whether the user role <code>user</code> has access to the access levels <code>admin</code> and <code>public</code>:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>   010 // = userRole: user
-</span><span class='line'>OR 100 // = accessLevel admin
-</span><span class='line'>=  000 // = false, no access
-</span><span class='line'>
-</span><span class='line'>   010 // = userRole: user
-</span><span class='line'>OR 111 // = accessLevel public
-</span><span class='line'>=  010 // = true, go ahead</span></code></pre></td></tr></table></div></figure>
+<p>```
+   010 // = userRole: user
+OR 100 // = accessLevel admin
+=  000 // = false, no access</p>
 
+<p>   010 // = userRole: user
+OR 111 // = accessLevel public
+=  010 // = true, go ahead
+```</p>
 
 <h2>Setting up client-side routing</h2>
 
 <p>When I define my routes I want to indicate what access level each route should have, so I add a new property to each route, called <code>access</code>, like so:</p>
 
-<div><script src='https://gist.github.com/6032777.js'></script>
+<p><div><script src='https://gist.github.com/6032777.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <h2>Communicating login status to client side app on initial page load</h2>
 
 <p>When the user first loads the client side app, whether he&rsquo;s trying to access a restricted or public route initially, the server needs to communicate the current role of the user. Since the client side app can&rsquo;t decrypt the authentication cookie set by the server, I decided to communicate login status via the HTTP response which serves up the single page application. I decided on doing this by setting a cookie, which the client would clear upon reading it. I feel like there&rsquo;s something icky about doing it this way, so I&rsquo;m open to any alternative solutions here. Anyway, the server sets the cookie like so:</p>
 
-<div><script src='https://gist.github.com/6032803.js'></script>
+<p><div><script src='https://gist.github.com/6032803.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>On the client-side I have an Angular service, <code>Auth</code>, which upon initialization will read in this cookie, save the login status, then discard the cookie. This service will also make the access levels, user roles, and current user available to the rest of the application.</p>
 
-<div><script src='https://gist.github.com/6032854.js'></script>
+<p><div><script src='https://gist.github.com/6032854.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>So, now my Angular app knows what login status the user has, and can perform the client side routing based on this status.</p>
 
@@ -286,31 +241,31 @@ However, I have a half-finished post I&rsquo;ll publish quite soon, which will c
 
 <p>Now that I have access to the current user&rsquo;s role and the access level of each route I can actually enforce the policy I&rsquo;ve configured. So now I can add functionality like logging in, registering new users, authorizing a route, etc. to the <code>Auth</code> service I mentioned earlier.</p>
 
-<div><script src='https://gist.github.com/6032902.js'></script>
+<p><div><script src='https://gist.github.com/6032902.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>This service can easily be reused by injecting it into any other component of my Angular application. For example, to actually enforce my routing policy I need to utilize the <code>authorize()</code> and <code>isLoggedIn()</code> functions in an event handler on $routeChangeStart:</p>
 
-<div><script src='https://gist.github.com/6032970.js'></script>
+<p><div><script src='https://gist.github.com/6032970.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>Now, whenever a route is accessed, the proper authorization check will be performed before serving up the view, and a redirect will happen in case the user has insufficient permissions.</p>
 
 <p>One gotcha here is that the session could time out making the client believe the user is logged in when in fact he is declined when communicating with the server resource API. However this can be rectified by using an HTTP interceptor to detect API calls that were denied. Mine is pretty simple, and just redirects to the login page in case of a 401.</p>
 
-<div><script src='https://gist.github.com/6033015.js'></script>
+<p><div><script src='https://gist.github.com/6033015.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <h2>Customizing views based on user role</h2>
 
 <p>I also want to introduce a directive I&rsquo;ve made which you can use to show/hide elements based on the current user&rsquo;s role. Here&rsquo;s what it looks like:</p>
 
-<div><script src='https://gist.github.com/6033059.js'></script>
+<p><div><script src='https://gist.github.com/6033059.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
-
+</p>
 
 <p>So, whenever you decorate a tag with the <code>access-level</code> directive, it will check the role of the current user, perform an authorization check using the injected <code>Auth</code>, and then show/hide the element. It also remembers the previous <code>display</code> property of the element in case the user logs out, thus changing her role.</p>
 
@@ -325,165 +280,6 @@ However, I have a half-finished post I&rsquo;ll publish quite soon, which will c
 </ol>
 </div>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[The Solar System]]></title>
-    <link href="http://frederiknakstad.com/the-solar-system"/>
-    <updated>2012-12-23T00:00:00+01:00</updated>
-    <id>http://frederiknakstad.com/the-solar-system</id>
-    <content type="html"><![CDATA[<p>While reading a Japanese text today, I ran into a sentence mentioning the planet Venus. In Japanese Venus is known as <ruby>金星<rt>きんせい</rt></ruby>, the kanji meaning &ldquo;gold/metal&rdquo; and &ldquo;star&rdquo; respectively. I decided to check out the other planet names of our solar system, and found out that they follow a naming pattern very close to how Japanese week days are named.   Just like the Japanese weekdays, many of the planets in our solar system are associated with an element like water, fire, and so on. Just see for yourself:</p>
-
-<table>
-<thead>
-<tr>
-<th align="center"><ruby>日本語<rt>にほんご</rt></ruby> </th>
-<th align="center"> English</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><ruby>太陽<rt>たいよう</rt></ruby>        </td>
-<td align="center"> Sun</td>
-</tr>
-<tr>
-<td align="center"><ruby>水星<rt>すいせい</rt></ruby>    </td>
-<td align="center"> Mercury</td>
-</tr>
-<tr>
-<td align="center"><ruby>金星<rt>きんせい</rt></ruby>    </td>
-<td align="center"> Venus</td>
-</tr>
-<tr>
-<td align="center"><ruby>地球<rt>ちきゅう</rt></ruby>    </td>
-<td align="center"> Earth</td>
-</tr>
-<tr>
-<td align="center"><ruby>火星<rt>かせい</rt></ruby>       </td>
-<td align="center"> Mars</td>
-</tr>
-<tr>
-<td align="center"><ruby>木星<rt>もくせい</rt></ruby>    </td>
-<td align="center"> Jupiter</td>
-</tr>
-<tr>
-<td align="center"><ruby>土星<rt>どせい</rt></ruby>       </td>
-<td align="center"> Saturn</td>
-</tr>
-<tr>
-<td align="center"><ruby>天王星<rt>てんのうせい</rt></ruby>   </td>
-<td align="center"> Uranus</td>
-</tr>
-<tr>
-<td align="center"><ruby>海王星<rt>かいおうせい</rt></ruby>   </td>
-<td align="center"> Neptune</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>So, if you disregard the sun and earth all but two of the planets are associated with an element. The origin for this naming scheme, I found out, is the concept of <a href="http://en.wikipedia.org/wiki/Wu_Xing">Wu Xing</a> which is prevalent in several Eastern Asian cultures. Wu Xing is a system for dividing different natural phenomena into five different phases corresponding to what the Chinese thought to be the five basic elements of nature: wood, fire, earth, metal, and water. This system was used to describe anything from cosmic cycles to musical notation and anatomical  processes. Thus, according to this system, Mercury is associated with water (水), Venus with gold/metal (金), Mars with fire (火), Jupiter with wood (木), and Saturn with earth (土).</p>
-
-<p>However, that means there are no elements left to assign to Uranus and Neptune&hellip; Since these two planets were discovered relatively recently, their names are simply translations from their Roman and Greek counterparts. Since Uranus was the Greek god of the sky, they decided to use the characters 天 and 王 in its name, meaning &ldquo;heaven&rdquo; and &ldquo;king&rdquo; respectively. Neptune, also known as the Roman god of the sea, was named using 海 and 王, meaning &ldquo;sea&rdquo; and &ldquo;king&rdquo;.</p>
-
-<p>Knowing the history behind the names should be really helpful in memorizing them! In concluding this post, I&rsquo;d like to list some other astronomical terms I came across:</p>
-
-<table>
-<thead>
-<tr>
-<th align="center"><ruby>日本語<rt>にほんご</rt></ruby> </th>
-<th align="center"> English</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><ruby>月<rt>つき</rt></ruby>     </td>
-<td align="center"> Moon</td>
-</tr>
-<tr>
-<td align="center"><ruby>惑星<rt>わくせい</rt></ruby>    </td>
-<td align="center"> Planet</td>
-</tr>
-<tr>
-<td align="center"><ruby>星<rt>ほし</rt></ruby>     </td>
-<td align="center"> Star</td>
-</tr>
-<tr>
-<td align="center"><ruby>太陽系<rt>たいようけい</rt></ruby>   </td>
-<td align="center"> Solar system</td>
-</tr>
-<tr>
-<td align="center"><ruby>銀河系<rt>ぎんがけい</rt></ruby>  </td>
-<td align="center"> Galaxy</td>
-</tr>
-<tr>
-<td align="center"><ruby>小惑星<rt>しょうわくせい</rt></ruby>    </td>
-<td align="center"> Asteroid</td>
-</tr>
-<tr>
-<td align="center"><ruby>小惑星帯<rt>しょうわくせいたい</rt></ruby>       </td>
-<td align="center"> Asteroid belt</td>
-</tr>
-<tr>
-<td align="center"><ruby>彗星<rt>すいせい</rt></ruby>    </td>
-<td align="center"> Comet</td>
-</tr>
-<tr>
-<td align="center"><ruby>流星<rt>りゅうせい</rt></ruby>     </td>
-<td align="center"> Meteor</td>
-</tr>
-<tr>
-<td align="center"><ruby>隕石<rt>いんせき</rt></ruby>    </td>
-<td align="center"> Meteorite</td>
-</tr>
-</tbody>
-</table>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dave Brubeck]]></title>
-    <link href="http://frederiknakstad.com/dave-brubeck/"/>
-    <updated>2012-12-06T00:00:00+01:00</updated>
-    <id>http://frederiknakstad.com/dave-brubeck</id>
-    <content type="html"><![CDATA[<p>Dave Brubeck has passed away, and I felt compelled to share a few thoughts about the man and his music. I first heard about him when a friend of mine in Tennessee played some songs off the album Take Five for me. I had heard the song the album takes its name from before and associated with a Norwegian commercial for caf   cookies, so I wasn&rsquo;t too thrilled about it. However, after hearing the song in its entirety and enjoying the excellent solo performances of Paul Desmond and Joe Morello I could tell there was something more to it than the pickled and processed 20 second cut I had heard earlier. One of my absolute favorite drum solos ever has been performed as part of this song:</p>
-
-<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/tsKq3HD0EFc "></iframe></div>
-
-
-<p>Blue Rondo al   Turk was more of an immediate revelation the first time I heard it, and really shows off Brubeck&rsquo;s own chops. It&rsquo;s probably the second most famous song off of the album, and for good reason. It, like Take Five, has an immediately recognizable melody, but manages at the same time to be interesting enough for repeated listens. I&rsquo;ll leave you with a slightly less known track off the album, which really embodies the honesty and playful tone I love about his music. Rest in peace, Dave. You had a good run.</p>
-
-<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/4Ro8-NOiMBY "></iframe></div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Token Introductory Post]]></title>
-    <link href="http://frederiknakstad.com/blog/2012/12/05/token-introductory-post/"/>
-    <updated>2012-12-05T00:00:00+01:00</updated>
-    <id>http://frederiknakstad.com/blog/2012/12/05/token-introductory-post</id>
-    <content type="html"><![CDATA[<hr />
-
-<p>layout: post
-title: Token introductory post
-status: publish
-type: post
-published: true
-comments: true
-permalink: /token-introductory-post/</p>
-
-<p>I debated with myself for a little bit whether to have an introductory post or just to get started blogging. You can probably guess what I decided on in the end&hellip;</p>
-
-<p>The purpose of this blog is completely for self-amusement, and is basically a means of jotting down notes for whatever it is I&rsquo;m working on at the   time. In the best case scenario other people will benefit from my posts, and give me feedback on better ways to solve things or simply provide interesting ideas and insight. I don&rsquo;t anticipate a huge flood of people wanting to read my ill-organized thoughts, but maybe I can distract the occasional straggler.</p>
-
-<p>I&rsquo;ve been working a lot with Node.js, Angular, and MongoDB lately, and I&rsquo;m trying to find patterns and practices that can be reused. I will try to make some blog posts documenting whatever results I stumble upon and supplement with code examples on GitHub. I am also in the middle of studying the Japanese language so expect posts which basically are extended notes on the usage of various grammatical constructs, interesting kanji, words, and the occasional cultural revelation.</p>
-
-<p>As stated earlier, this is a personal blog, so don&rsquo;t expect a very focused theme here; I will post about anything from cute kitty pictures to development patterns and books/music that interest me at the time. Blogging seems to me to have the potential to be a highly masturbatory and scatter-brained act, and I plan to indulge without any pretense of a more noble motive.</p>
-
-<p>Anyway, stay tuned for actual content!</p>
 ]]></content>
   </entry>
   

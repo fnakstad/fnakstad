@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Token introductory post
-tags: []
 status: publish
 type: post
 published: true

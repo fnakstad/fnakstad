@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Solar System
-tags: Astronomy Japanese
+categories: [Astronomy, Japanese]
 status: publish
 type: post
 published: true

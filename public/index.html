@@ -9,7 +9,7 @@
   <meta name="author" content="Frederik Nakstad">
 
   
-  <meta name="description" content="Here&rsquo;s a quick little follow-up to my last post about the Application Cache. How the browser checks and fetches the cache can be a little &hellip;">
+  <meta name="description" content="As you may have gathered from the title, this is a follow-up to a post I wrote a some time ago regarding role-based authentication/authorization in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,156 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/04/authentication-in-single-page-applications-with-angular.js-part-2/">Authentication in Single Page Applications With Angular.js Part 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-04T00:00:00+02:00" pubdate data-updated="true">Aug 4<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/04/authentication-in-single-page-applications-with-angular.js-part-2/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As you may have gathered from the title, this is a follow-up to <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">a post I wrote a some time ago</a> regarding role-based authentication/authorization in single page applications. This time I&rsquo;d like to highlight how I implemented the server-side code that complements my client-side solution.</p>
+
+<p><strong>Since you can never trust that the requests you get from the client haven&rsquo;t been tampered with, it&rsquo;s paramount to have a good authentication/authorization strategy on the server. The client-side authentication scheme I introduced earlier is simply a convenient way to adapt the user interface &ndash; proper authentication/authorization should always be left up to the server-side.</strong></p>
+
+<p>I am using Node.js/Express along with the excellent Passport.js authentication middleware, but hopefully it shouldn&rsquo;t be too much bother to apply the same patterns to other server-side frameworks. You can see an example of this scheme implemented in <a href="https://github.com/fnakstad/angular-client-side-auth">this GitHub repo</a>, and I have a live version of it <a href="http://angular-client-side-auth.herokuapp.com/">running on Heroku</a>. Well, let&rsquo;s get right to it!</p>
+
+<p>Node.js/Express is very non-prescriptive in terms of telling you how to lay out your code, so I&rsquo;ll try to give a quick overview how I lay out my projects first. When working with Node.js/Angular I usually divide my code into server and client directories, and then split my server side code into controllers and models. so my directory structure usually looks something like this:</p>
+
+<p><a href="http://www.frederiknakstad.com/wp-content/uploads/2013/06/project_layout.png"><img src="http://www.frederiknakstad.com/wp-content/uploads/2013/06/project_layout.png" alt="project_layout" width="381" height="404" class="aligncenter size-full wp-image-404" /></a></p>
+
+<p>So, the <strong>client</strong> directory contains all my client-side Javascript (including all my Angular.js code), HTML, and CSS resources. The client folder is served as a static directory structure. My <strong>server</strong> directory contains the code for defining my REST API.</p>
+
+<p>The entry point is the <strong>server.js</strong> file in the root where I configure Express, set up middleware, and then delegate routing to another file called <strong>routes.js</strong>. <strong>routes.js</strong> in turn defines my routes, their access levels, middleware, and in the end hands off the responsibility to a handler defined in one of my controllers.</p>
+
+<ul>
+<li>client               * This is where I keep any client-side Javascript (So, all my Angular.js code), HTML, and CSS resources *
+
+<ul>
+<li>css</li>
+<li>js</li>
+<li>views</li>
+</ul>
+</li>
+<li>server
+
+<ul>
+<li>controllers</li>
+<li>models</li>
+<li>routes.js</li>
+</ul>
+</li>
+<li>server.js</li>
+</ul>
+
+
+<p>client
+// This is where I keep any client-side Javascript (So, all my Angular.js code), HTML, and CSS resources
+&ndash; css
+&ndash; js
+&ndash; views
+server
+&ndash; controllers
+&ndash; models
+&ndash; routes.js
+server.js
+// entry point, instantiate server, middleware registration</p>
+
+<p>Common user-roles/access-levels module
+As you might remember from my first post, I made a module wherein I declared all user roles and access levels. I used a little trick to make this module usable both in the browser and by Node.js, so in case you forgot here&rsquo;s what the code looks like:</p>
+
+<pre>
+[javascript]
+
+[/javascript]
+</pre>
+
+
+<p>EnsureAuthorized middleware
+The next step is to create a middleware component which can be used to authorize an HTTP request based on the</p>
+
+<p>Routing setup
+ So, usually I&rsquo;ll have a routes.js file where I declare all</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/28/hello-octopress/">Hello Octopress</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-28T00:55:00+02:00" pubdate data-updated="true">Jul 28<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/28/hello-octopress/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have been working on migrating my blog from Wordpress to Octopress lately, and finally the new version is live!
+The new setup is running via <a href="http://nginx.org/">nginx</a> on an Ubuntu VPS from <a href="https://www.digitalocean.com/">DigitalOcean</a>.
+This was my first time trying out nginx, and it was surprisingly simple to set up!
+I guess it&rsquo;s used more often as a reverse proxy, but for static sites (such as Octopress) it also works really well as a simple server.</p>
+
+<p>Another reason for the lack of posts lately is that I am moving to Tokyo this September to start studying at <a href="http://www.waseda.jp/">Waseda University</a>.
+I&rsquo;ll be starting my Master&rsquo;s studies there as part of <a href="http://www.washi.cs.waseda.ac.jp/">Professor Washizaki&rsquo;s lab</a>, and I couldn&rsquo;t be more excited about it!
+Needless to say, moving to the other side of the world encompasses a ton of preparations and paperwork (and the Japanese, like any other bureaucracy I guess, <em>love</em> their paperwork).</p>
+
+<p>So, hopefully there will be more non-technical posts as well.
+However, I have a half-finished post I&rsquo;ll publish quite soon, which will complement <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">Authentication in Single Page Applications With Angular.js</a> with information about how the server-side is set up. I&rsquo;ve received a lot of questions about that, so I thought a clarification might be in order.</p>
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3H7ditla3l4 "></iframe></div>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -689,7 +839,6 @@
 
 <p>layout: post
 title: Token introductory post
-tags: []
 status: publish
 type: post
 published: true
@@ -725,6 +874,14 @@ permalink: /token-introductory-post/</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/08/04/authentication-in-single-page-applications-with-angular.js-part-2/">Authentication in Single Page Applications With Angular.js Part 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/28/hello-octopress/">Hello Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/application-cache-update-process-state-diagram/">Application Cache Update Process State Diagram</a>
       </li>
     
@@ -734,14 +891,6 @@ permalink: /token-introductory-post/</p>
     
       <li class="post">
         <a href="/seeding-mongodb-through-your-mongoose-models/">Seeding Mongodb Through Your Mongoose Models</a>
-      </li>
-    
-      <li class="post">
-        <a href="/psych-saturday/">Psych Saturday</a>
-      </li>
-    
-      <li class="post">
-        <a href="/authentication-in-single-page-applications-with-angular-js/">Authentication in Single Page Applications With Angular.js</a>
       </li>
     
   </ul>

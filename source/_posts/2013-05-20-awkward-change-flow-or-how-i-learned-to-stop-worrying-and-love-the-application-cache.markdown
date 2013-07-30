@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ! 'Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache'
-tags: Application Cache Development Grunt.js HTML5
+categories: [Application Cache, Development, Grunt.js, HTML5]
 status: publish
 type: post
 published: true

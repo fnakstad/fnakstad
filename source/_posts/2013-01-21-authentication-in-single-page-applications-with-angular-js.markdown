@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Authentication in Single Page Applications with Angular.js
-tags: Angular JS Development
+categories: [Angular.js, Development]
 status: publish
 type: post
 published: true

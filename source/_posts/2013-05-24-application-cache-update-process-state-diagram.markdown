@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Application Cache Update Process State Diagram
-tags: Application Cache Development
+categories: [Application Cache, Development]
 status: publish
 type: post
 published: true

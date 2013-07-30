@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Authentication in Single Page Applications with Angular.js Part 2
-tags: Angular.js Development Express Node.js Passport.js
+categories: [Angular.js, Development, Express, Node.js, Passport.js]
 published: false
 comments: true
 ---
@@ -18,6 +18,16 @@ Node.js/Express is very non-prescriptive in terms of telling you how to lay out 
 So, the <strong>client</strong> directory contains all my client-side Javascript (including all my Angular.js code), HTML, and CSS resources. The client folder is served as a static directory structure. My <strong>server</strong> directory contains the code for defining my REST API. 
 
 The entry point is the <strong>server.js</strong> file in the root where I configure Express, set up middleware, and then delegate routing to another file called <strong>routes.js</strong>. <strong>routes.js</strong> in turn defines my routes, their access levels, middleware, and in the end hands off the responsibility to a handler defined in one of my controllers.
+
+* client               * This is where I keep any client-side Javascript (So, all my Angular.js code), HTML, and CSS resources *
+	* css
+	* js
+	* views
+* server
+	* controllers
+	* models
+	* routes.js
+* server.js
 
 client
 // This is where I keep any client-side Javascript (So, all my Angular.js code), HTML, and CSS resources

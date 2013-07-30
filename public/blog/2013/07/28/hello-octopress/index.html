@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Application Cache Update Process State Diagram - A Modest Proposal</title>
+  <title>Hello Octopress - A Modest Proposal</title>
   <meta name="author" content="Frederik Nakstad">
 
   
-  <meta name="description" content="Here&rsquo;s a quick little follow-up to my last post about the Application Cache. How the browser checks and fetches the cache can be a little &hellip;">
+  <meta name="description" content="I have been working on migrating my blog from Wordpress to Octopress lately, and finally the new version is live!
+The new setup is running via nginx &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://frederiknakstad.com/application-cache-update-process-state-diagram">
+  <link rel="canonical" href="http://frederiknakstad.com/blog/2013/07/28/hello-octopress">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="A Modest Proposal" type="application/atom+xml">
@@ -99,7 +100,7 @@
   
   <header>
     
-      <h1 class="entry-title">Application Cache Update Process State Diagram</h1>
+      <h1 class="entry-title">Hello Octopress</h1>
     
     
       <p class="meta">
@@ -115,7 +116,7 @@
   
 
 
-<time datetime="2013-05-24T00:00:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2013</time>
+<time datetime="2013-07-28T00:55:00+02:00" pubdate data-updated="true">Jul 28<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -124,11 +125,20 @@
   </header>
 
 
-<div class="entry-content"><p>Here&rsquo;s a quick  little follow-up to my last post about the Application Cache. How the browser checks and fetches the cache can be a little confusing at first, so I made a state diagram to keep track of the different states the Application Cache might be in and the events that change said state.</p>
+<div class="entry-content"><p>I have been working on migrating my blog from Wordpress to Octopress lately, and finally the new version is live!
+The new setup is running via <a href="http://nginx.org/">nginx</a> on an Ubuntu VPS from <a href="https://www.digitalocean.com/">DigitalOcean</a>.
+This was my first time trying out nginx, and it was surprisingly simple to set up!
+I guess it&rsquo;s used more often as a reverse proxy, but for static sites (such as Octopress) it also works really well as a simple server.</p>
 
-<p><img src="/images/posts/appCache_stateDiag.png"></p>
+<p>Another reason for the lack of posts lately is that I am moving to Tokyo this September to start studying at <a href="http://www.waseda.jp/">Waseda University</a>.
+I&rsquo;ll be starting my Master&rsquo;s studies there as part of <a href="http://www.washi.cs.waseda.ac.jp/">Professor Washizaki&rsquo;s lab</a>, and I couldn&rsquo;t be more excited about it!
+Needless to say, moving to the other side of the world encompasses a ton of preparations and paperwork (and the Japanese, like any other bureaucracy I guess, <em>love</em> their paperwork).</p>
 
-<p>Well, it&rsquo;s not awfully complicated, but it&rsquo;s nice to have a visual aid when debugging. The guard conditions indicate whether there already exists an old version of the application cache or not.</p>
+<p>So, hopefully there will be more non-technical posts as well.
+However, I have a half-finished post I&rsquo;ll publish quite soon, which will complement <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">Authentication in Single Page Applications With Angular.js</a> with information about how the server-side is set up. I&rsquo;ve received a lot of questions about that, so I thought a clarification might be in order.</p>
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3H7ditla3l4 "></iframe></div>
+
 </div>
 
 
@@ -151,21 +161,15 @@
   
 
 
-<time datetime="2013-05-24T00:00:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2013</time>
+<time datetime="2013-07-28T00:55:00+02:00" pubdate data-updated="true">Jul 28<span>th</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/application-cache/'>Application Cache</a>, <a class='category' href='/blog/categories/development/'>Development</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://frederiknakstad.com/application-cache-update-process-state-diagram/" data-via="fnakstad" data-counturl="http://frederiknakstad.com/application-cache-update-process-state-diagram/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://frederiknakstad.com/blog/2013/07/28/hello-octopress/" data-via="fnakstad" data-counturl="http://frederiknakstad.com/blog/2013/07/28/hello-octopress/" >Tweet</a>
   
   
   
@@ -174,10 +178,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/awkward-change-flow-or-how-i-learned-to-stop-worrying-and-love-the-application-cache/" title="Previous Post: Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache">&laquo; Awkward Change Flow or: How I Learned to Stop Worrying and Love the Application Cache</a>
+        <a class="basic-alignment left" href="/application-cache-update-process-state-diagram/" title="Previous Post: Application Cache Update Process State Diagram">&laquo; Application Cache Update Process State Diagram</a>
       
       
-        <a class="basic-alignment right" href="/blog/2013/07/28/hello-octopress/" title="Next Post: Hello Octopress">Hello Octopress &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2013/08/04/authentication-in-single-page-applications-with-angular.js-part-2/" title="Next Post: Authentication in Single Page Applications with Angular.js Part 2">Authentication in Single Page Applications with Angular.js Part 2 &raquo;</a>
       
     </p>
   </footer>
@@ -238,8 +242,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://frederiknakstad.com/application-cache-update-process-state-diagram/';
-        var disqus_url = 'http://frederiknakstad.com/application-cache-update-process-state-diagram/';
+        var disqus_identifier = 'http://frederiknakstad.com/blog/2013/07/28/hello-octopress/';
+        var disqus_url = 'http://frederiknakstad.com/blog/2013/07/28/hello-octopress/';
         var disqus_script = 'embed.js';
       
     (function () {
