@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Passport.js | A Modest Proposal]]></title>
   <link href="http://frederiknakstad.com/blog/categories/passport-dot-js/atom.xml" rel="self"/>
   <link href="http://frederiknakstad.com/"/>
-  <updated>2013-07-30T21:33:00+02:00</updated>
+  <updated>2013-08-26T15:52:25+02:00</updated>
   <id>http://frederiknakstad.com/</id>
   <author>
     <name><![CDATA[Frederik Nakstad]]></name>
@@ -18,68 +18,84 @@
     <link href="http://frederiknakstad.com/blog/2013/08/04/authentication-in-single-page-applications-with-angular.js-part-2/"/>
     <updated>2013-08-04T00:00:00+02:00</updated>
     <id>http://frederiknakstad.com/blog/2013/08/04/authentication-in-single-page-applications-with-angular.js-part-2</id>
-    <content type="html"><![CDATA[<p>As you may have gathered from the title, this is a follow-up to <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">a post I wrote a some time ago</a> regarding role-based authentication/authorization in single page applications. This time I&rsquo;d like to highlight how I implemented the server-side code that complements my client-side solution.</p>
+    <content type="html"><![CDATA[<p>As you may have gathered from the title, this is a follow-up to <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">a post I wrote a some time ago</a> regarding role-based authentication/authorization in single page applications. This time I&rsquo;d like to highlight how I implemented routing and authorization in the Node.js server that complements my Angular client.</p>
 
-<p><strong>Since you can never trust that the requests you get from the client haven&rsquo;t been tampered with, it&rsquo;s paramount to have a good authentication/authorization strategy on the server. The client-side authentication scheme I introduced earlier is simply a convenient way to adapt the user interface &ndash; proper authentication/authorization should always be left up to the server-side.</strong></p>
+<p><strong>Since you can never trust that the client code hasn’t been tampered with by the user, it’s paramount to have a good authentication/authorization strategy on the server. The client-side auth scheme I introduced earlier is simply a convenient way to customize the user interface – proper authentication/authorization should always be left up to the server-side.</strong></p>
 
-<p>I am using Node.js/Express along with the excellent Passport.js authentication middleware, but hopefully it shouldn&rsquo;t be too much bother to apply the same patterns to other server-side frameworks. You can see an example of this scheme implemented in <a href="https://github.com/fnakstad/angular-client-side-auth">this GitHub repo</a>, and I have a live version of it <a href="http://angular-client-side-auth.herokuapp.com/">running on Heroku</a>. Well, let&rsquo;s get right to it!</p>
+<p>I am using Node.js/Express along with the excellent Passport.js authentication middleware, but hopefully it shouldn&rsquo;t be too much bother to apply the same patterns to other server-side frameworks. You can see an example of this scheme implemented in <a href="https://github.com/fnakstad/angular-client-side-auth">this GitHub repo</a>, and I have a live version of it <a href="http://angular-client-side-auth.herokuapp.com/">running on Heroku</a>.</p>
 
-<p>Node.js/Express is very non-prescriptive in terms of telling you how to lay out your code, so I&rsquo;ll try to give a quick overview how I lay out my projects first. When working with Node.js/Angular I usually divide my code into server and client directories, and then split my server side code into controllers and models. so my directory structure usually looks something like this:</p>
+<p>Well, let&rsquo;s get right to it!</p>
 
-<p><a href="http://www.frederiknakstad.com/wp-content/uploads/2013/06/project_layout.png"><img src="http://www.frederiknakstad.com/wp-content/uploads/2013/06/project_layout.png" alt="project_layout" width="381" height="404" class="aligncenter size-full wp-image-404" /></a></p>
+<h2>Project layout</h2>
 
-<p>So, the <strong>client</strong> directory contains all my client-side Javascript (including all my Angular.js code), HTML, and CSS resources. The client folder is served as a static directory structure. My <strong>server</strong> directory contains the code for defining my REST API.</p>
+<p>Node.js/Express is very non-prescriptive in terms of dictating how to lay out your code, so I’ll try to give a quick overview how I structure my projects first. When working with Node.js/Angular I usually divide my code into server and client directories, and then split my server side code into controllers and models. So my directory structure will look something like this:</p>
 
-<p>The entry point is the <strong>server.js</strong> file in the root where I configure Express, set up middleware, and then delegate routing to another file called <strong>routes.js</strong>. <strong>routes.js</strong> in turn defines my routes, their access levels, middleware, and in the end hands off the responsibility to a handler defined in one of my controllers.</p>
+<p><img src="/images/posts/2013-08-04-authentication-in-single-page-applications-with-angular.js-part-2/project_layout.png"></p>
 
-<ul>
-<li>client               * This is where I keep any client-side Javascript (So, all my Angular.js code), HTML, and CSS resources *
+<p>The <strong>client</strong> directory contains all my client-side Javascript (including all my Angular.js code), HTML, and CSS resources. This is because I want a clear division between the resources that will be running in the browser and those that will be run server-side. The client folder is served as a static directory structure by Node.js. My <strong>server</strong> directory contains the code for defining my REST API. So, when the client has been downloaded in the user’s browser it will communicate with the server by sending XHRs to fetch data, login/logout users, fetch partial views, and so on. The starting point is the <strong>server.js</strong> file in the root directory where I bootstrap the server application by configuring Express and Passport and setting up other middleware components.</p>
 
-<ul>
-<li>css</li>
-<li>js</li>
-<li>views</li>
-</ul>
-</li>
-<li>server
+<h2>Routing</h2>
 
-<ul>
-<li>controllers</li>
-<li>models</li>
-<li>routes.js</li>
-</ul>
-</li>
-<li>server.js</li>
-</ul>
+<p>Before I actually start up the server in <strong>server.js</strong> I will register my own routes by calling the module defined in <strong>routes.js</strong>. Let’s take a closer look at it.</p>
 
+<p><div><script src='https://gist.github.com/6116325.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
 
-<p>client
-// This is where I keep any client-side Javascript (So, all my Angular.js code), HTML, and CSS resources
-&ndash; css
-&ndash; js
-&ndash; views
-server
-&ndash; controllers
-&ndash; models
-&ndash; routes.js
-server.js
-// entry point, instantiate server, middleware registration</p>
+<p>Since I want to set up my server-side routes somewhat similarly to how I did on the client-side, I create an array called routes which contains objects defining each route. This gives me the freedom to customize what kind of metadata I want to associate with each route. These are the properties I expect in a route object:</p>
 
-<p>Common user-roles/access-levels module
-As you might remember from my first post, I made a module wherein I declared all user roles and access levels. I used a little trick to make this module usable both in the browser and by Node.js, so in case you forgot here&rsquo;s what the code looks like:</p>
-
-<pre>
-[javascript]
-
-[/javascript]
-</pre>
+<table>
+<thead>
+<tr>
+<th>Property    </th>
+<th> Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>path</strong>        </td>
+<td> The url you want the route to map to</td>
+</tr>
+<tr>
+<td><strong>httpMethod</strong>  </td>
+<td> HTTP Method, GET, POST, PUT, or DELETE</td>
+</tr>
+<tr>
+<td><strong>middleware</strong>  </td>
+<td> An array of functions which will be executed in the order left to right</td>
+</tr>
+<tr>
+<td><strong>accessLevel</strong> </td>
+<td> The access level of the route. If the user requesting the route doesn’t have access a 403 Unauthorized will be returned. If this property is not present, an access level of public is assumed.</td>
+</tr>
+</tbody>
+</table>
 
 
-<p>EnsureAuthorized middleware
-The next step is to create a middleware component which can be used to authorize an HTTP request based on the</p>
+<br />
 
-<p>Routing setup
- So, usually I&rsquo;ll have a routes.js file where I declare all</p>
+
+<h2>Authorization</h2>
+
+<p>One of the more interesting properties here is the <code>accessLevel</code> property, which is used to restrict access to the route for certain user roles. This property is not required unless you want to restrict access to a route for a certain set of users. As you might remember from <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">my previous post</a>, I made a module wherein I declared all user roles and access levels. I used a little trick to make this module usable both in the browser and by Node.js. This ensures that the values used to define access levels and user roles are equal on the server- and client-side. Of course the end-user can tamper with the values in his browser, but that won’t affect what’s running server-side. This is why I have been stressing the point that you need to make sure your server-side resources are properly secured. In case you forgot, here’s what the code looks like:</p>
+
+<p><div><script src='https://gist.github.com/6031923.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+
+<p>To enforce the access levels I’ve set on my routes I made a middleware component. This middleware component will calculate whether the current user has access to the requested route using a bitwise OR operation on the access level of the route and role of the requesting user. If the user is found to not have access the sever will respond with a HTTP 403, and break out of the middleware chain. You might also notice that I fall back on the respective <code>public</code> values for access levels and user roles by default if no user is logged in or if the route does not contain the accessLevel property.</p>
+
+<p><div><script src='https://gist.github.com/6165691.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+
+<p>So, now I need to register my routes with express and make sure that the <code>ensureAuthorized</code> middleware is run on all of them. I usually perform this logic in the function I export from the <strong>routes.js</strong> file, so that I can easily call it, and thus register my routes, from my <strong>server.js</strong> file. The function loops over the <code>routes</code> array, prepending each route’s middleware arrays with the <code>ensureAuthorized</code> component, and then registering it with express according to the other route metadata.</p>
+
+<p><div><script src='https://gist.github.com/6150416.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+
+<p>And that’s it! I want to remind that you can see a more comprehensive example in <a href="https://github.com/fnakstad/angular-client-side-auth">this Github repo</a>. If you want a better understanding of how this approach works, I highly recommend that you clone and mess around with it a little bit. And if you have any questions or issues, just post a comment here or an issue on Github.</p>
 ]]></content>
   </entry>
   
