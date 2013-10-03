@@ -29,13 +29,13 @@ To indicate the available user roles and access levels to be used in the routing
 Both the user roles and access levels are defined as numbers so that it is possible to calculate permissions using binary operations. User roles are defined by which bit is set to 1, while access levels indicate whether that user role has access by setting the corresponding bit to either 1 or 0 in the bitmask[^1]. So, here is an example of binary operations that can be calculated to see whether the user role `user` has access to the access levels `admin` and `public`:
 
 ```
-   010 // = userRole: user
-OR 100 // = accessLevel admin
-=  000 // = false, no access
+    010 // = userRole: user
+AND 100 // = accessLevel admin
+=   000 // = false, no access
 
-   010 // = userRole: user
-OR 111 // = accessLevel public
-=  010 // = true, go ahead
+    010 // = userRole: user
+AND 111 // = accessLevel public
+=   010 // = true, go ahead
 ```
 
 ## Setting up client-side routing

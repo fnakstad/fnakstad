@@ -44,7 +44,7 @@ One of the more interesting properties here is the <code>accessLevel</code> prop
 
 {% gist 6031923 %}
 
-To enforce the access levels I’ve set on my routes I made a middleware component. This middleware component will calculate whether the current user has access to the requested route using a bitwise OR operation on the access level of the route and role of the requesting user. If the user is found to not have access the sever will respond with a HTTP 403, and break out of the middleware chain. You might also notice that I fall back on the respective <code>public</code> values for access levels and user roles by default if no user is logged in or if the route does not contain the accessLevel property.
+To enforce the access levels I’ve set on my routes I made a middleware component. This middleware component will calculate whether the current user has access to the requested route using a bitwise AND operation on the access level of the route and role of the requesting user. If the user is found to not have access the sever will respond with a HTTP 403, and break out of the middleware chain. You might also notice that I fall back on the respective <code>public</code> values for access levels and user roles by default if no user is logged in or if the route does not contain the accessLevel property.
 
 {% gist 6165691 %}
 
