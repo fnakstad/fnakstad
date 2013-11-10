@@ -2,7 +2,7 @@
 layout: post
 title: Authentication in Single Page Applications with Angular.js Part 2
 categories: [Angular.js, Development, Express, Node.js, Passport.js]
-published: false
+published: true
 comments: true
 ---
 As you may have gathered from the title, this is a follow-up to <a href="http://www.frederiknakstad.com/authentication-in-single-page-applications-with-angular-js/">a post I wrote a some time ago</a> regarding role-based authentication/authorization in single page applications. This time I'd like to highlight how I implemented routing and authorization in the Node.js server that complements my Angular client.
